@@ -26,7 +26,17 @@ for movie in now_movie_list:
 
 comment_url_list = []
 for item in now_movie_list:
+    '''
+    count = 0
+    i = 0
+    while i < 3:
+        comment_url_list.append('https://movie.douban.com/subject/' + item['id'] + '/comments?start='+ str(count)+ '&limit=20')
+        i = i + 1
+        count = count + 20
+    '''
     comment_url_list.append('https://movie.douban.com/subject/' + item['id'] + '/comments?start=0&limit=20')
+    comment_url_list.append('https://movie.douban.com/subject/' + item['id'] + '/comments?start=20&limit=20&sort=new_score&status=P')
+
 
 comments_list = []
 for url in comment_url_list:
@@ -40,8 +50,7 @@ filename = 'comment.txt'
 index = 0
 with open(filename, 'w', encoding='utf-8') as file:
     for com_list in comments_list:
-        file.write(str(index+1) + '.' + now_movie_list[index]['name']+"  Score:"+now_movie_list[index]['score']+'\n\n')
-        file.write("热门评论：\n")
+        #file.write(str(index+1) + '.' + now_movie_list[index]['name']+"  Score:"+now_movie_list[index]['score']+'\n\n')
         for com in com_list:
             file.write(com+'\n')
         file.write('\n\n')
