@@ -52,6 +52,10 @@ with open(filename, 'w', encoding='utf-8') as file:
     for com_list in comments_list:
         #file.write(str(index+1) + '.' + now_movie_list[index]['name']+"  Score:"+now_movie_list[index]['score']+'\n\n')
         for com in com_list:
-            file.write(com+'\n')
+            pattern = re.compile(r'[\u4e00-\u9fa5]+')
+            filterdata = re.findall(pattern, str(com))
+            cleaned_comments = ''.join(filterdata)
+
+            file.write(cleaned_comments+'\n')
         file.write('\n\n')
         index = index + 1
