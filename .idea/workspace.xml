@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fcb4ee3f-1a1f-480a-baaf-0bdfc25fc11b" name="Default" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chineseStopWords.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/comment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/captchas/100.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/captchas/71.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/captchas/78.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/captchas/90.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,27 +17,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Douban_Crawler$crawler.coverage" NAME="crawler Coverage Results" MODIFIED="1543302229709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Douban_Crawler$crawler.coverage" NAME="crawler Coverage Results" MODIFIED="1543611606327" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="crawler.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/crawler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="18" column="37" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+            <state relative-caret-position="544">
+              <caret line="188" column="16" lean-forward="true" selection-start-line="188" selection-start-column="16" selection-end-line="188" selection-end-column="16" />
               <folding>
-                <element signature="e#0#29#0" expanded="true" />
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="中国蓝盔_3.2分.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/comments/中国蓝盔_3.2分.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="722">
-              <caret line="38" column="12" lean-forward="true" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -44,7 +36,7 @@
       <file leaf-file-name="chineseStopWords.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chineseStopWords.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3976">
+            <state relative-caret-position="28823">
               <caret line="1517" column="2" selection-start-line="1517" selection-start-column="2" selection-end-line="1517" selection-end-column="2" />
             </state>
           </provider>
@@ -66,6 +58,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/chineseStopWords.txt" />
+        <option value="$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/aip/__init__.py" />
         <option value="$PROJECT_DIR$/crawler.py" />
       </list>
     </option>
@@ -80,8 +73,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="625" />
-    <option name="y" value="-20" />
+    <option name="x" value="440" />
+    <option name="y" value="-25" />
     <option name="width" value="650" />
     <option name="height" value="615" />
   </component>
@@ -96,16 +89,6 @@
             <path>
               <item name="Douban_Crawler" type="b2602c69:ProjectViewProjectNode" />
               <item name="Douban_Crawler" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Douban_Crawler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Douban_Crawler" type="462c0819:PsiDirectoryNode" />
-              <item name="captchas" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Douban_Crawler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Douban_Crawler" type="462c0819:PsiDirectoryNode" />
-              <item name="comments" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -186,19 +169,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32876712" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32876712" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32876712" />
       <window_info anchor="right" x="1005" y="100" width="506" height="490" id="SciView" order="3" show_stripe_button="false" type="FLOATING" weight="0.3294271" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -209,6 +190,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32876712" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,20 +204,124 @@
     <option name="LAST_COMMIT_MESSAGE" value="first commit" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/comment.txt">
+    <entry file="file://$PROJECT_DIR$/crawler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" lean-forward="true" selection-start-column="1" selection-end-column="1" />
+        <state relative-caret-position="2299">
+          <caret line="133" lean-forward="true" selection-start-line="133" selection-end-line="133" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chineseStopWords.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28823">
+          <caret line="1517" column="2" selection-start-line="1517" selection-start-column="2" selection-end-line="1517" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crawler.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2356">
+          <caret line="124" column="28" lean-forward="true" selection-start-line="124" selection-start-column="28" selection-end-line="124" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chineseStopWords.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28823">
+          <caret line="1517" column="2" selection-start-line="1517" selection-start-column="2" selection-end-line="1517" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1482">
+          <caret line="78" column="31" lean-forward="true" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chineseStopWords.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28823">
+          <caret line="1517" column="2" selection-start-line="1517" selection-start-column="2" selection-end-line="1517" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1843">
+          <caret line="97" column="32" lean-forward="true" selection-start-line="97" selection-start-column="32" selection-end-line="97" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chineseStopWords.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28823">
+          <caret line="1517" column="2" selection-start-line="1517" selection-start-column="2" selection-end-line="1517" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="19" lean-forward="true" selection-start-column="19" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chineseStopWords.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28823">
+          <caret line="1517" column="2" selection-start-line="1517" selection-start-column="2" selection-end-line="1517" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chineseStopWords.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28823">
+          <caret line="1517" column="2" selection-start-line="1517" selection-start-column="2" selection-end-line="1517" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chineseStopWords.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28823">
+          <caret line="1517" column="2" selection-start-line="1517" selection-start-column="2" selection-end-line="1517" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/comment.txt" />
+    <entry file="file://$PROJECT_DIR$/crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1083">
           <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -243,46 +329,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="4" column="17" lean-forward="true" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/comment.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comment.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/comment.txt" />
+    <entry file="file://$PROJECT_DIR$/comment.txt" />
+    <entry file="file://$PROJECT_DIR$/comments/中国蓝盔_3.2分.txt" />
     <entry file="file://$PROJECT_DIR$/chineseStopWords.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3976">
+        <state relative-caret-position="28823">
           <caret line="1517" column="2" selection-start-line="1517" selection-start-column="2" selection-end-line="1517" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/comments/中国蓝盔_3.2分.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="38" column="12" lean-forward="true" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/aip/__init__.py" />
     <entry file="file://$PROJECT_DIR$/crawler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="37" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+        <state relative-caret-position="544">
+          <caret line="188" column="16" lean-forward="true" selection-start-line="188" selection-start-column="16" selection-end-line="188" selection-end-column="16" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>

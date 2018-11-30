@@ -1,3 +1,5 @@
+from urllib import request
+from aip import AipNlp
 from bs4 import BeautifulSoup
 import re
 import matplotlib.pyplot as plt
@@ -9,8 +11,14 @@ import urllib
 import os
 import time
 from PIL import Image
+import emoji
 
 now_movie_list = []
+emotion_list = []
+jieba.add_word('任素汐')
+APP_ID = '14963270'
+API_KEY = 'DzcClKytSKKGpbTxdSFUcyif'
+SECRET_KEY = 'IIIiZbKyHdFDqA7xq17kb8wS3elRVF7a'
 
 
 def login_douban():
@@ -27,6 +35,8 @@ def login_douban():
     html = r.text
     if html.__contains__('try'):
         print(html)
+    if r.url == 'https://movie.douban.com':
+        return html
     reg = r'<img id="captcha_image" src="(.*?)" alt="captcha" class="captcha_image"/>'
     imglist = re.findall(reg, html)
     pic = 'captchas\\%d.jpg' % random.randint(1,100)
@@ -60,6 +70,19 @@ def jieba_split(txt):
     return ' '.join(words_list)
 
 
+def get_sentiments(text):
+    try:
+        sitems=client.sentimentClassify(text)['items'][0]# 情感分析
+        print(sitems)
+        print('\n')
+        positive = sitems['positive_prob']# 积极概率
+        confidence = sitems['confidence']# 置信度
+        sentiment = sitems['sentiment']# 0表示消极，1表示中性，2表示积极
+        return sitems
+    except Exception as e:
+        print(e)
+
+
 def get_now_movie(html):
     soup = BeautifulSoup(html)
     div_list = soup.body.find(id='screening')
@@ -82,23 +105,36 @@ def get_now_movie(html):
 
 def getcomment(comment_url_list, filename):
     comments_list = []
-
+    n = 0
+    sum = 0
     for url in comment_url_list:
         comment_res = urllib.request.urlopen(url)
         comment_soup = BeautifulSoup(comment_res, 'html.parser')
         comments = [item.string for item in comment_soup.find_all('span', class_='short')]
+        # ranks = [item for item in comment_soup.findAll('span', class_='allstar40 rating')]
         comments_list.append(comments)
 
     with open('comments\\'+ filename + '.txt', 'w', encoding='utf-8') as file:
         print('\n'+filename+'\n')
         for com_list in comments_list:
             for com in com_list:
-                print(com+'\n')
+                print(com)
                 pattern = re.compile(r'[\u4e00-\u9fa5]+')
                 filterdata = re.findall(pattern, str(com))
                 cleaned_comments = ''.join(filterdata)
+                sitems = get_sentiments(emoji.demojize(com))
+                try:
+                    sum = sum + sitems['positive_prob']*sitems['confidence']
+                    n = n + sitems['confidence']
+                except:
+                    print('pass')
                 file.write(cleaned_comments + '\n')
 
+    emotion = {'movie': filename,
+               'emotion': round(sum / n, 2),
+               }
+    print(emotion)
+    emotion_list.append(emotion)
     create_wordcloud(jieba_split('comments\\' + filename + '.txt'), filename)
 
 
@@ -110,11 +146,14 @@ def create_wordcloud(wl, filename):
                    max_font_size=60,
                    random_state=30,
         )
-    myword = wc.generate(wl)
-    wc.to_file('wordclouds\\' + filename + '.jpg')
-    plt.imshow(myword)
-    plt.axis("off")
-    plt.show()
+    try:
+        myword = wc.generate(wl)
+        wc.to_file('wordclouds\\' + filename + '.jpg')
+        plt.imshow(myword)
+        plt.axis("off")
+        plt.show()
+    except BaseException as e:
+        print(e)
 
 
 if __name__ == '__main__':
@@ -124,6 +163,8 @@ if __name__ == '__main__':
         os.makedirs('wordclouds\\')
     if not os.path.exists('captchas\\'):
         os.makedirs('captchas\\')
+
+    client = AipNlp(APP_ID, API_KEY, SECRET_KEY)
 
     while True:
         html = login_douban()
@@ -143,3 +184,6 @@ if __name__ == '__main__':
                 20 * page) + '&limit=20&sort=new_score&status=P')
         getcomment(comment_url_list, item['name'] + '_'+ item['score'] + '分')
         comment_url_list = []
+
+    for i in emotion_list:
+        print(i)
