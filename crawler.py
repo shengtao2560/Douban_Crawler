@@ -1,3 +1,4 @@
+import http.cookiejar
 import os
 import random
 import re
@@ -18,7 +19,7 @@ from bs4 import BeautifulSoup
 from pylab import mpl
 from wordcloud import WordCloud
 
-# 代理开关
+# 代理开关（-1为仅在登录使用，0为不使用，1为全局使用）
 using_proxy = 0
 # 情感分析开关
 emotion_ai = 1
@@ -36,9 +37,14 @@ API_KEY = 'DzcClKytSKKGpbTxdSFUcyif'
 SECRET_KEY = 'IIIiZbKyHdFDqA7xq17kb8wS3elRVF7a'
 # 加载百度Ai自然语言处理
 client = AipNlp(APP_ID, API_KEY, SECRET_KEY)
+
 # http_headers
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64)\
    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36', }
+
+# 创建cookies对象并保存
+session = requests.Session()
+session.cookies = http.cookiejar.LWPCookieJar(filename='DoubanCookies')
 
 
 # 获取代理的IP_pool并多线程验证,写入文件
@@ -122,13 +128,14 @@ def login_douban(redir):
                'form_password': '6305318ST',
                'login': '登录',
                }
-    r = requests.post(login_url, data=my_post, headers=headers)
+    r = session.post(login_url, data=my_post, headers=headers)
     html = r.text
     if html.__contains__('try'):
         print(html)
 
     # 如果直接登录成功则返回
     if r.url == redir:
+        session.cookies.save()
         return html
     # 否则拉取captcha
     reg = r'<img id="captcha_image" src="(.*?)" alt="captcha" class="captcha_image"/>'
@@ -146,8 +153,9 @@ def login_douban(redir):
     ids = re.findall(regid, html)
     my_post["captcha-solution"] = captcha
     my_post["captcha-id"] = ids[0]
-    q = requests.post(login_url, data=my_post, headers=headers)
+    q = session.post(login_url, data=my_post, headers=headers)
     print(q.url)
+    session.cookies.save()
     return q.text
 
 
@@ -182,7 +190,7 @@ def get_sentiments(text):
 
 # 获取正在热映电影
 def get_now_movie(html):
-    soup = BeautifulSoup(html)
+    soup = BeautifulSoup(html, 'html.parser')
     div_list = soup.body.find(id='screening')
     now_movie_taglist = div_list.find_all('li', class_=re.compile(r'^ui-slide-item\s?s?'))
 
@@ -208,7 +216,7 @@ def getcomment(comment_url_list, filename, switch):
     count = 0
     count_e = 0
     for url in comment_url_list:
-        if using_proxy:
+        if using_proxy == 1:
             while 1:
                 try:
                     proxy_initialize(count // 10 + count_e)
@@ -309,7 +317,7 @@ def ex_ranks():
                  '3742360', '26861685', '4920528',
                  '26683723', '26575103', '30122633']
     for i in range(len(custom_id)):
-        for page in range(11):
+        for page in range(15):
             comment_url_list.append('https://movie.douban.com/subject/' + custom_id[i] + '/comments?start=' + str(
                 20 * page) + '&limit=20&sort=new_score&status=P')
         getcomment(comment_url_list, 'custom', 1)
@@ -345,12 +353,23 @@ if __name__ == '__main__':
     while True:
         html = login_douban('https://movie.douban.com')
         time.sleep(1)
-        if BeautifulSoup(html).title.get_text() == '登录豆瓣':
+        if BeautifulSoup(html, 'html.parser').title.get_text() == '登录豆瓣':
             print('登录失败，请等待3秒')
             time.sleep(3)
         else:
-            print('登录成功')
+            print('登录成功\n')
             break
+
+    # 加载cookies
+    session.cookies.load(ignore_discard=True)
+    print('cookies成功加载')
+    for item in session.cookies:
+        print('name:' + item.name + '-value:' + item.value)
+    print('\n')
+    handler = request.HTTPCookieProcessor(session.cookies)
+    opener = request.build_opener(handler)
+    urllib.request.install_opener(opener)
+    time.sleep(1)
 
     # 导出评星到excel，使用时去掉注释
     # ex_ranks()
@@ -361,7 +380,7 @@ if __name__ == '__main__':
     # 添加短评每页的url到comment_url_list
     comment_url_list = []
     for item in now_movie_list:
-        for page in range(11):
+        for page in range(15 if using_proxy != 1 else 11):
             comment_url_list.append('https://movie.douban.com/subject/' + item['id'] + '/comments?start=' + str(
                 20 * page) + '&limit=20&sort=new_score&status=P')
         getcomment(comment_url_list, item['name'] + '_' + item['score'] + '分', 0)
