@@ -1,14 +1,14 @@
-import pandas as pd
+import emoji
 import jieba
-from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import pandas as pd
+from aip import AipNlp
+from sklearn import metrics
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import make_pipeline
-from sklearn.model_selection import cross_val_score
-from sklearn import metrics
-import matplotlib.pyplot as plt
-from aip import AipNlp
-import emoji
 
 # Baidu_Aip密钥
 APP_ID = '14963270'
@@ -17,9 +17,10 @@ SECRET_KEY = 'IIIiZbKyHdFDqA7xq17kb8wS3elRVF7a'
 # 加载百度Ai自然语言处理
 client = AipNlp(APP_ID, API_KEY, SECRET_KEY)
 
+
 # 评星数量>3作为正向情感，取值为1；反之视作负向情感，取值为0
 def make_label(df):
-    df["sentiment"] = df["star"].apply(lambda x: 1 if x>3 else 0)
+    df["sentiment"] = df["star"].apply(lambda x: 1 if x > 3 else 0)
 
 
 def chinese_word_cut(mytext):
@@ -27,21 +28,22 @@ def chinese_word_cut(mytext):
 
 
 def get_custom_stopwords(stop_words_file):
-    with open(stop_words_file) as f:
+    with open(stop_words_file, encoding='gbk') as f:
         stopwords = f.read()
     stopwords_list = stopwords.split('\n')
     custom_stopwords_list = [i for i in stopwords_list]
     return custom_stopwords_list
 
+
 # 调用百度api情感分析
 def get_sentiment(text):
-        # print(emoji.demojize(text))
-        try:
-            sitems=client.sentimentClassify(emoji.demojize(text))['items'][0]
-            # print(sitems['positive_prob'])
-            return sitems['positive_prob']
-        except Exception as e:
-            print(e)
+    # print(emoji.demojize(text))
+    try:
+        sitems = client.sentimentClassify(emoji.demojize(text))['items'][0]
+        # print(sitems['positive_prob'])
+        return sitems['positive_prob']
+    except Exception as e:
+        print()
 
 
 # 模型优度的可视化展现
@@ -49,8 +51,7 @@ def visualize(text, y_test, y_pred):
     fpr, tpr, _ = metrics.roc_curve(y_test, y_pred, pos_label=1)
     auc = metrics.auc(fpr, tpr)
 
-    # 中文和负号的正常显示
-    plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
+    # 负号的正常显示
     plt.rcParams['axes.unicode_minus'] = False
     # 设置绘图风格
     plt.style.use('ggplot')
@@ -73,7 +74,7 @@ def visualize(text, y_test, y_pred):
 
 
 # 数据读入
-df = pd.read_excel('ranks.xlsx', sheetname = 0)
+df = pd.read_excel('ranks.xlsx', sheetname=0)
 make_label(df)
 # 把特征和标签拆开
 X = df[['comment']]
@@ -88,10 +89,10 @@ stop_words_file = "chineseStopWords.txt"
 stopwords = get_custom_stopwords(stop_words_file)
 
 # 生成特征向量并降维
-max_df = 0.8 # 在超过这一比例的文档中出现的关键词（过于平凡），去除掉。
-min_df = 3 # 在低于这一数量的文档中出现的关键词（过于独特），去除掉。
-vect = CountVectorizer(max_df = max_df,
-                       min_df = min_df,
+max_df = 0.8  # 在超过这一比例的文档中出现的关键词（过于平凡），去除掉。
+min_df = 3  # 在低于这一数量的文档中出现的关键词（过于独特），去除掉。
+vect = CountVectorizer(max_df=max_df,
+                       min_df=min_df,
                        token_pattern=u'(?u)\\b[^\\d\\W]\\w+\\b',
                        stop_words=frozenset(stopwords))
 
@@ -114,12 +115,11 @@ print(metrics.confusion_matrix(y_test, y_pred))
 visualize('Multinomial naive bayes', y_test, y_pred)
 
 # 对比百度ai的情感分析
-y_pred_baidu = X_test.comment.apply(get_sentiment)
 print('waiting for baidu_ai analyse...')
-y_pred_baidu_normalized = y_pred_baidu.apply(lambda x: 1 if x>0.5 else 0)
+y_pred_baidu = X_test.comment.apply(get_sentiment)
+y_pred_baidu_normalized = y_pred_baidu.apply(lambda x: 1 if x > 0.5 else 0)
 accuracy2 = metrics.accuracy_score(y_test, y_pred_baidu_normalized)
-print('baidu_ai_测试集预测准确率：',accuracy2)
+print('baidu_ai_测试集预测准确率：', accuracy2)
 print('baidu_ai混淆矩阵：')
 print(metrics.confusion_matrix(y_test, y_pred_baidu_normalized))
 visualize('baidu_ai', y_test, y_pred_baidu_normalized)
-
